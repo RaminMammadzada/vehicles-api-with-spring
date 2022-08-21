@@ -1,26 +1,38 @@
 [
   {
     "_class":"com.udacity.pricing.domain.price.Price",
-    "vehicleId":1,
     "currency":"USD",
-    "price": 11000.11
+    "price": 512.42,
+    "vehicleId":1
   },
   {
     "_class":"com.udacity.pricing.domain.price.Price",
-    "vehicleId":2,
     "currency":"USD",
-    "price": 22000.22
+    "price": 1057.14,
+    "vehicleId":2
   },
   {
     "_class":"com.udacity.pricing.domain.price.Price",
-    "vehicleId":3,
     "currency":"USD",
-    "price": 33000.33
+    "price": 114.13,
+    "vehicleId":3
   },
   {
     "_class":"com.udacity.pricing.domain.price.Price",
-    "vehicleId":4,
     "currency":"USD",
-    "price": 44000.44
+    "price": 64412.12,
+    "vehicleId":4
+  },
+  {
+    "_class":"com.udacity.pricing.domain.price.Price",
+    "currency":"USD",
+    "price": 5112.42,
+    "vehicleId":5
+  },
+  {
+    "_class":"com.udacity.pricing.domain.price.Price",
+    "currency":"USD",
+    "price": 32.42,
+    "vehicleId":6
   }
 ]
