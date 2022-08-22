@@ -4,9 +4,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -83,6 +81,52 @@ public class CarControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .accept(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    public void updateCar() throws Exception {
+        Car car = carService.findById(1L);
+
+        Location location = new Location(25.00, 35.00);
+        car.setLocation(location);
+
+        Details details = car.getDetails();
+        details.setMileage(2000);
+        details.setExternalColor("green");
+        details.setFuelType("Hybrid");
+
+        car.setDetails(details);
+
+        var expectedJsonCar = "{\n" +
+                "   \"condition\":\"USED\",\n" +
+                "   \"details\":{\n" +
+                "      \"body\":\"sedan\",\n" +
+                "      \"model\":\"Impala\",\n" +
+                "      \"manufacturer\":{\n" +
+                "         \"code\":101,\n" +
+                "         \"name\":\"Chevrolet\"\n" +
+                "      },\n" +
+                "      \"numberOfDoors\":4,\n" +
+                "      \"fuelType\":\"Hybrid\",\n" +
+                "      \"engine\":\"3.6L V6\",\n" +
+                "      \"mileage\":2000,\n" +
+                "      \"modelYear\":2018,\n" +
+                "      \"productionYear\":2018,\n" +
+                "      \"externalColor\":\"green\"\n" +
+                "   },\n" +
+                "   \"location\":{\n" +
+                "      \"lat\":25.00,\n" +
+                "      \"lon\":35.00\n" +
+                "   }\n" +
+                "}";
+
+        URI testUri = new URI("/cars/1");
+        mvc.perform(put(testUri)
+                                .content(json.write(car).getJson())
+                                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                                .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andExpect(content().json(expectedJsonCar));
     }
 
     /**
